@@ -1,0 +1,60 @@
+﻿@model List<Product>
+@{
+    ViewBag.Title = "ProductTable";
+}
+
+    <div>
+        <form method="post">
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="form-group">
+                        <label>Search</label>
+                        <input class="form-control" id="" name="Search" value="" />
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Action</label>
+                        <div class="row">
+                            <div class="col-md-4 pr-0">
+                                <button class="btn btn-primary form-control" type="button" id="searchBtn">Search</button>
+                            </div>
+                            <div class="col-md-4 pr-0">
+                                <button class="btn btn-primary form-control" type="button" id="resetBtn">Reset</button>
+                            </div>
+                            <div class="col-md-4 pr-0">
+                                <button class="btn btn-primary form-control" type="button" id="newBtn">New</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div>
+        <table id="" class="table table-striped">
+            <thead>
+                <tr>
+                    <th class="font-weight-bold">Product Name</th>
+                    <th class="font-weight-bold">Category</th>
+                    <th class="font-weight-bold">Price</th>
+                    <th class="font-weight-bold wrap-td">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var product in Model)
+                {
+                    <tr>
+                        <td>@product.Name</td>
+                        <td>-</td>
+                        <td>@product.Description</td>
+                        <td class="wrap-td">
+                            <button class="editBtn" data-id="">Edit</button>
+                            <button class="deleteBtn" data-id="">Delete</button>
+                            <button class="addtoCart" data-id="">Add To Cart</button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>

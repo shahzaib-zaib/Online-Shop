@@ -520,11 +520,16 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Category\Create.cshtml" />
+    <Content Include="Views\Category\Index.cshtml" />
+    <Content Include="Views\Category\Edit.cshtml" />
+    <Content Include="Views\Category\Delete.cshtml" />
+    <Content Include="Views\Product\Index.cshtml" />
+    <Content Include="Views\Product\ProductTable.cshtml" />
+    <Content Include="Views\Product\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\images\about\" />
-    <Folder Include="Views\Product\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -539,6 +544,10 @@
     <ProjectReference Include="..\OnlineShop.Entities\OnlineShop.Entities.csproj">
       <Project>{1BF3FCD4-C518-48DE-A4F2-8B821F642FE5}</Project>
       <Name>OnlineShop.Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\OnlineShop.Services\OnlineShop.Services.csproj">
+      <Project>{34FB6433-FF5F-4094-B1CE-23B855106573}</Project>
+      <Name>OnlineShop.Services</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

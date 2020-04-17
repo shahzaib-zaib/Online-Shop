@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace OnlineShop.Database
 {
-    public class OSContext : DbContext
+    public class OSContext : DbContext, IDisposable
     {
         public OSContext() : base("OnlineShop")
         {

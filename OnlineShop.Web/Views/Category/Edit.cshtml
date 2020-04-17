@@ -1,21 +1,22 @@
-﻿
+﻿@model OnlineShop.Entities.Category
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Edit";
 }
 
-<h2>Create Category</h2>
+<h2>Edit Category</h2>
 
 <div class="container">
     <form method="post">
         <div class="row">
             <div class="col-md-8">
+                <input class="form-control" type="hidden" name="ID" value="@Model.ID" />
                 <div class="form-group">
                     <label>Name <span class="text-danger">*</span></label>
-                    <input class="form-control" name="Name" />
+                    <input class="form-control" name="Name" value="@Model.Name" />
                 </div>
                 <div class="form-group">
                     <label>Description</label>
-                    <input class="form-control" name="Description" />
+                    <input class="form-control" name="Description" value="@Model.Description" />
                 </div>
             </div>
         </div>
@@ -23,5 +24,4 @@
         <button type="submit" class="btn btn-primary">Save</button>
     </form>
 </div>
-
 
