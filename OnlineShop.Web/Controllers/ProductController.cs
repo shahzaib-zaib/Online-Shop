@@ -39,5 +39,27 @@ namespace OnlineShop.Web.Controllers
             productServices.SaveProduct(product);
             return RedirectToAction("ProductTable");
         }
+
+        [HttpGet]
+        public ActionResult Edit(int ID)
+        {
+            var product = productServices.GetProduct(ID);
+
+            return PartialView(product);
+        }
+        [HttpPost]
+        public ActionResult Edit(Product product)
+        {
+            productServices.UpdateProduct(product);
+            return RedirectToAction("ProductTable");
+        }
+
+        [HttpPost]
+        public ActionResult Delete(int ID)
+        {
+            productServices.DeleteProduct(ID);
+            return RedirectToAction("ProductTable");
+        }
+
     }
 }
