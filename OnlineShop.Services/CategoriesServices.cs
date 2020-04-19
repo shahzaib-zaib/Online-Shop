@@ -24,6 +24,15 @@ namespace OnlineShop.Services
                 return context.Categories.ToList();
             }
         }
+
+        public List<Category> GetFeaturedCategories()
+        {
+            using (var context = new OSContext())
+            {
+                return context.Categories.Where(x => x.IsFeatured).ToList();
+            }
+        }
+
         public void SaveCategory(Category category)
         {
             using (var context = new OSContext())

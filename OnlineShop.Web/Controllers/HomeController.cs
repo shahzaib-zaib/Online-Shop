@@ -14,7 +14,7 @@ namespace OnlineShop.Web.Controllers
         public ActionResult Index()
         {
             HomeViewModel model = new HomeViewModel();
-            model.Categories = categoryService.GetCategories();
+            model.FeaturedCategories = categoryService.GetCategories();
 
             return View(model);
         }
