@@ -1,5 +1,6 @@
 ﻿using OnlineShop.Entities;
 using OnlineShop.Services;
+using OnlineShop.Web.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,12 +32,22 @@ namespace OnlineShop.Web.Controllers
         [HttpGet]
         public ActionResult Create()
         {
-            return PartialView();
+            CategoriesServices categoriesServices = new CategoriesServices();
+            var categories = categoriesServices.GetCategories();
+
+            return PartialView(categories);
         }
         [HttpPost]
-        public ActionResult Create(Product product)
+        public ActionResult Create(NewCategoryViewModel model)
         {
-            productServices.SaveProduct(product);
+            CategoriesServices categoriesServices = new CategoriesServices();
+
+            var newProduct = new Product();
+            newProduct.Name = model.Name;
+            newProduct.Description = model.Description;
+            newProduct.Price = model.Price;
+            newProduct.Category = categoriesServices.GetCategory(model.CategoryID);
+            productServices.SaveProduct(newProduct);
             return RedirectToAction("ProductTable");
         }
 
