@@ -1,6 +1,8 @@
 ﻿
 @{
     ViewBag.Title = "Create";
+
+    var imageURL = "/Content/images/system/placeholder-image.png";
 }
 
 <h2>Create Category</h2>
@@ -26,23 +28,23 @@
                     <label>Is Featured?</label>
                     <div class="input-group">
                         <div class="radio form-control">
-                            <label><input name="isFeatured" type="radio" value="True" /> True</label>
+                            <label><input name="IsFeatured" type="radio" value="True" /> True</label>
                         </div>
                         <div class="radio form-control">
-                            <label><input name="isFeatured" type="radio" value="False" /> False</label>
+                            <label><input name="IsFeatured" type="radio" value="False" /> False</label>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="thumb">
-                    <img class="img-thumbnail img-fluid" id="categoryImage" src="" />
+                    <img class="img-thumbnail img-fluid" id="categoryImage" src="@imageURL" />
                 </div>
             </div>
         </div>
 
-        <button type="submit">Save</button>
-        <button type="button">Cancel</button>
+        <button id="saveBtn" type="submit" class="btn btn-primary">Save</button>
+        <button id="cancelBtn" type="button" class="btn btn-primary">Cancel</button>
     </form>
 </div>
 

@@ -29,7 +29,7 @@ namespace OnlineShop.Services
         {
             using (var context = new OSContext())
             {
-                return context.Categories.Where(x => x.IsFeatured).ToList();
+                return context.Categories.Where(x => x.IsFeatured && x.ImageURL != null).ToList();
             }
         }
 

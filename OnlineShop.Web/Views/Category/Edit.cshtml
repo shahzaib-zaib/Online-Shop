@@ -1,6 +1,12 @@
 ﻿@model OnlineShop.Entities.Category
 @{
     ViewBag.Title = "Edit";
+
+    var trueChecked = Model.IsFeatured ? "checked" : string.Empty;
+    var falseChecked = !Model.IsFeatured ? "checked" : string.Empty;
+
+    var imageURL = !string.IsNullOrEmpty(Model.ImageURL) ? Model.ImageURL : "/Content/images/system/placeholder-image.png";
+
 }
 
 <h2>Edit Category</h2>
@@ -18,10 +24,32 @@
                     <label>Description</label>
                     <input class="form-control" name="Description" value="@Model.Description" />
                 </div>
+                <div class="form-group">
+                    <label>Image</label>
+                    <input type="hidden" id="ImageURL" name="ImageURL" value="@Model.ImageURL" />
+                    <input class="form-control" id="imageUpload" name="Image" type="file" accept=".png, .jpg" />
+                </div>
+                <div class="form-group">
+                    <label>Is Featured?</label>
+                    <div class="input-group">
+                        <div class="radio form-control">
+                            <label><input name="IsFeatured" type="radio" value="True" @trueChecked /> True</label>
+                        </div>
+                        <div class="radio form-control">
+                            <label><input name="IsFeatured" type="radio" value="False" @falseChecked /> False</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="thumb">
+                    <img src="@imageURL" class="img-thumbnail img-fluid" id="categoryImage" />
+                </div>
             </div>
         </div>
 
-        <button type="submit" class="btn btn-primary">Save</button>
+        <button id="updateBtn" type="submit" class="btn btn-primary">Update</button>
+        <button id="cancelBtn" type="button" class="btn btn-primary">Cancel</button>
     </form>
 </div>
 
