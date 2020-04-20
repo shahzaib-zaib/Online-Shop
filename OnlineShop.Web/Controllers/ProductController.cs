@@ -38,7 +38,7 @@ namespace OnlineShop.Web.Controllers
             return PartialView(categories);
         }
         [HttpPost]
-        public ActionResult Create(NewCategoryViewModel model)
+        public ActionResult Create(NewProductViewModel model)
         {
             CategoriesServices categoriesServices = new CategoriesServices();
 

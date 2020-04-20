@@ -93,7 +93,9 @@
 			url: '/Product/Create',
 		})
         .done(function (response) {
-        	$("#actionContainer").html(response);
+            $("#actionContainer").html(response);
+
+            focusAction("actionContainer");
         })
         .fail(function (XMLHttpRequest, textStatus, errorThrown) {
         	alert("FAIL");
@@ -108,7 +110,9 @@
 			}
 		})
         .done(function (response) {
-        	$("#actionContainer").html(response);
+            $("#actionContainer").html(response);
+
+            focusAction("actionContainer");
         })
         .fail(function (XMLHttpRequest, textStatus, errorThrown) {
         	alert("FAIL");
