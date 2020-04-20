@@ -17,6 +17,29 @@ namespace OnlineShop.Services
                 return context.Categories.Find(ID);
             }
         }
+        public int GetCategoriesCount(string search)
+        {
+            using (var context = new OSContext())
+            {
+                if (!string.IsNullOrEmpty(search))
+                {
+                    return context.Categories.Where(category => category.Name != null &&
+                         category.Name.ToLower().Contains(search.ToLower())).Count();
+                }
+                else
+                {
+                    return context.Categories.Count();
+                }
+            }
+        }
+
+        public List<Category> GetAllCategories()
+        {
+            using (var context = new OSContext())
+            {
+                return context.Categories.ToList();
+            }
+        }
         public List<Category> GetCategories()
         {
             using (var context = new OSContext())

@@ -83,4 +83,26 @@
         });
 	});
 
+    $("#saveBtn").click(function () {
+
+			$.ajax({
+				type: 'POST',
+				url: '/Category/Create', //Url.Action("Create", "Category")
+				data: $("#createCategory").serialize()
+			})
+			.done(function (response) {
+				$("#tableContiner").html(response);
+				$("#actionContainer").html("");
+				focusAction("tableContiner");
+			})
+			.fail(function (XMLHttpRequest, textStatus, errorThrown) {
+                alert("FAIL");
+			});
+	});
+
+	$("#cancelBtn").click(function () {
+		$("#actionContainer").html("");
+
+		focusAction("tableContiner");
+	});
 </script>
