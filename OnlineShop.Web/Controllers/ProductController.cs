@@ -11,7 +11,8 @@ namespace OnlineShop.Web.Controllers
 {
     public class ProductController : Controller
     {
-        ProductsServices productServices = new ProductsServices(); 
+        ProductsServices productServices = new ProductsServices();
+        CategoriesServices categoriesServices = new CategoriesServices();
 
         // GET: Product
         public ActionResult Index()
@@ -21,27 +22,25 @@ namespace OnlineShop.Web.Controllers
 
         public ActionResult ProductTable(string search)
         {
-            var products = productServices.GetProducts();
+            ProductSearchViewModel model = new ProductSearchViewModel();
+            model.Products = productServices.GetProducts();
             if (string.IsNullOrEmpty(search) == false)
             {
-                products = products.Where(p => p.Name != null  && p.Name.ToLower().Contains(search.ToLower())).ToList();
+                model.SearchTerm = search;
+                model.Products = model.Products.Where(p => p.Name != null  && p.Name.ToLower().Contains(search.ToLower())).ToList();
             }
-            return PartialView(products);
+            return PartialView(model);
         }
 
         [HttpGet]
         public ActionResult Create()
         {
-            CategoriesServices categoriesServices = new CategoriesServices();
             var categories = categoriesServices.GetCategories();
-
             return PartialView(categories);
         }
         [HttpPost]
         public ActionResult Create(NewProductViewModel model)
         {
-            CategoriesServices categoriesServices = new CategoriesServices();
-
             var newProduct = new Product();
             newProduct.Name = model.Name;
             newProduct.Description = model.Description;
