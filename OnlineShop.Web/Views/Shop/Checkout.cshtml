@@ -4,24 +4,43 @@
 {
     if (Model.CartProducts != null && Model.CartProducts.Count > 0)
     {
-        <div>
-            @foreach (var product in Model.CartProducts)
-            {
-                var productQuantity = Model.CartProductIDs.Where(productID => productID == product.ID).Count();
+        var i = 1;
+        <section class="flat-row main-shop shop-slidebar">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4 order-md-2 mb-4">
+                        <h4 class="d-flex justify-content-between align-items-center mb-3">
+                            <span class="text-muted">Your cart</span>
+                        </h4>
+                        <ul class="list-group mb-3">
+                            @foreach (var product in Model.CartProducts)
+                            {
+                                var productQuantity = Model.CartProductIDs.Where(productID => productID == product.ID).Count();
 
-                <div>
-                    Name: @product.Name - Price: @product.Price - Quantity: @productQuantity - Total Price: @(product.Price * productQuantity)
+                                <li class="list-group-item d-flex justify-content-between lh-condensed" data-id="@product.ID">
+                                    <div>
+                                        <h6 class="my-0">@i - @product.Name - Qty: @productQuantity</h6>
+                                        <small class="text-muted">@(product.Description.Length > 100 ? product.Description.Substring(0, 99) : product.Description)</small>
+                                    </div>
+                                    <span class="text-muted">Unit Price: $ @product.Price - Total Price: @(productQuantity * product.Price)</span>
+                                </li>
+
+                                i++;
+                            }
+
+                            <li class="list-group-item d-flex justify-content-between">
+                                <span>Total (USD)</span>
+                                <strong>$ @Model.CartProducts.Sum(x => x.Price * Model.CartProductIDs.Where(productID => productID == x.ID).Count())</strong>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
-            }
-        </div>
-
-        <div>
-            Total Bill: @Model.CartProducts.Sum(x => x.Price * Model.CartProductIDs.Where(productID => productID == x.ID).Count())
-
-        </div>
+            </div>
+        </section>
+                    
     }
     else
     {
-        <div>No products in cart.</div>
+    <div>No products in cart.</div>
     }
-}
+    }
