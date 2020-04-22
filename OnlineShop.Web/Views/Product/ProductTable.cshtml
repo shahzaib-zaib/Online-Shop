@@ -3,161 +3,194 @@
     ViewBag.Title = "ProductTable";
 }
 
-    <div>
-        <form method="post">
-            <div class="row">
-                <div class="col-md-8">
-                    <div class="form-group">
-                        <label>Search</label>
-                        <input class="form-control" id="searchTxt"  />
-                    </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.0/sweetalert.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.min.js"></script>
+
+<div>
+    <form method="post">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="form-group">
+                    <label>Search</label>
+                    <input class="form-control" id="searchTxt" />
                 </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label>Action</label>
-                        <div class="row">
-                            <div class="col-md-4 pr-0">
-                                <button type="button" id="searchBtn">Search</button>
-                            </div>
-                            <div class="col-md-4 pr-0">
-                                <button type="button" id="resetBtn">Reset</button>
-                            </div>
-                            <div class="col-md-4 pr-0">
-                                <button type="button" id="newBtn">New</button>
-                            </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>Action</label>
+                    <div class="row">
+                        <div class="col-md-4 pr-0">
+                            <button type="button" id="searchBtn">Search</button>
+                        </div>
+                        <div class="col-md-4 pr-0">
+                            <button type="button" id="resetBtn">Reset</button>
+                        </div>
+                        <div class="col-md-4 pr-0">
+                            <button type="button" id="newBtn">New</button>
                         </div>
                     </div>
                 </div>
             </div>
-        </form>
-    </div>
-    <div>
-        <table id="ProductsTable" class="table table-striped">
-            <thead>
-                <tr>
-                    <th class="font-weight-bold">Product Name</th>
-                    <th class="font-weight-bold">Category</th>
-                    <th class="font-weight-bold">Description</th>
-                    <th class="font-weight-bold">Price</th>
-                    <th class="font-weight-bold wrap-td">Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                @if (Model.Products != null && Model.Products.Count > 0)
-                {
-                    foreach (var product in Model.Products)
-                    {
-                        <tr>
-                            <td>@product.Name</td>
-                            <td>
-                                @if (product.Category != null)
-                                {
-                                    <text>@product.Category.Name</text>
-                                }
-                                else
-                                {
-                                    <text>-</text>
-                                }
-                            </td>
-                            <td>@product.Description</td>
-                            <td>@product.Price</td>
-                            <td class="wrap-td">
-                                <button class="editBtn" data-id="@product.ID">Edit</button>
-                                <button class="deleteBtn" data-id="@product.ID">Delete</button>
-                                <button class="addtoCart" data-id="@product.ID">Add To Cart</button>
-                            </td>
-                        </tr>
-                    }
-                }
-                else
+        </div>
+    </form>
+</div>
+<div>
+    <table id="ProductsTable" class="table table-striped">
+        <thead>
+            <tr>
+                <th class="font-weight-bold">Product Name</th>
+                <th class="font-weight-bold">Category</th>
+                <th class="font-weight-bold">Description</th>
+                <th class="font-weight-bold">Price</th>
+                <th class="font-weight-bold wrap-td">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.Products != null && Model.Products.Count > 0)
+            {
+                foreach (var product in Model.Products)
                 {
                     <tr>
-                        <td class="text-danger" colspan="4">No product found.</td>
+                        <td>@product.Name</td>
+                        <td>
+                            @if (product.Category != null)
+                            {
+                                <text>@product.Category.Name</text>
+                            }
+                            else
+                            {
+                                <text>-</text>
+                            }
+                        </td>
+                        <td>@product.Description</td>
+                        <td>@product.Price</td>
+                        <td class="wrap-td">
+                            <button class="editBtn" data-id="@product.ID">Edit</button>
+                            <button class="deleteBtn" data-id="@product.ID">Delete</button>
+                            <button class="addtoCart" data-id="@product.ID">Add To Cart</button>
+                        </td>
                     </tr>
                 }
-
-            </tbody>
-        </table>
-    </div>
-    
-    <script>
-        $("#searchBtn").click(function () {
-            var searchValue = $("#searchTxt").val();
-
-		$.ajax({
-            url: '/Product/ProductTable',
-			data: {
-				search: searchValue
-			}
-		})
-        .done(function (response) {
-            $("#tableContiner").html(response);
-        })
-        .fail(function (XMLHttpRequest, textStatus, errorThrown) {
-        	alert("FAIL");
-        });
-        });
-
-        $("#newBtn").click(function () {
-		$.ajax({
-			url: '/Product/Create',
-		})
-        .done(function (response) {
-            $("#actionContainer").html(response);
-
-            focusAction("actionContainer");
-        })
-        .fail(function (XMLHttpRequest, textStatus, errorThrown) {
-        	alert("FAIL");
-        });
-        });
-
-        $(".editBtn").click(function () {
-		$.ajax({
-			url: '/Product/Edit',
-			data: {
-				ID: $(this).attr('data-id')
-			}
-		})
-        .done(function (response) {
-            $("#actionContainer").html(response);
-
-            focusAction("actionContainer");
-        })
-        .fail(function (XMLHttpRequest, textStatus, errorThrown) {
-        	alert("FAIL");
-        });
-        });
-
-        $(".deleteBtn").click(function () {
-
-            var confirmDelete = confirm('Are you sure you want to delete this?')
-
-            if (confirmDelete) {
-                $.ajax({
-                    type: 'POST',
-                    url: '/Product/Delete',
-                    data: {
-                        ID: $(this).attr('data-id')
-                    }
-                })
-                    .done(function (response) {
-                        $("#tableContiner").html(response);
-                    })
-                    .fail(function (XMLHttpRequest, textStatus, errorThrown) {
-                        alert("FAIL");
-                    });
             }
-        });
+            else
+            {
+                <tr>
+                    <td class="text-danger" colspan="4">No product found.</td>
+                </tr>
+            }
 
-        var products = [];
-        $(".addtoCart").click(function () {
-            var productID = $(this).attr('data-id');
+        </tbody>
+    </table>
+</div>
 
-            products.push(productID);
+<script>
+    $("#searchBtn").click(function () {
+        var searchValue = $("#searchTxt").val();
 
-            $.cookie('CartProducts', products.join('-'), { path: '/' });
+        $.ajax({
+            url: '/Product/ProductTable',
+            data: {
+                search: searchValue
+            }
+        })
+            .done(function (response) {
+                $("#tableContiner").html(response);
+            })
+            .fail(function (XMLHttpRequest, textStatus, errorThrown) {
+                alert("FAIL");
+            });
+    });
 
-            alert("Product added to Cart.");
-        });
-    </script>
+    $("#newBtn").click(function () {
+        $.ajax({
+            url: '/Product/Create',
+        })
+            .done(function (response) {
+                $("#actionContainer").html(response);
+
+                focusAction("actionContainer");
+            })
+            .fail(function (XMLHttpRequest, textStatus, errorThrown) {
+                alert("FAIL");
+            });
+    });
+
+    $(".editBtn").click(function () {
+        $.ajax({
+            url: '/Product/Edit',
+            data: {
+                ID: $(this).attr('data-id')
+            }
+        })
+            .done(function (response) {
+                $("#actionContainer").html(response);
+
+                focusAction("actionContainer");
+            })
+            .fail(function (XMLHttpRequest, textStatus, errorThrown) {
+                alert("FAIL");
+            });
+    });
+
+    $(".deleteBtn").click(function () {
+
+        swal({
+			title: "Confirm?",
+			text: "Are you sure you want to delete this product?",
+			icon: "warning",
+			buttons: true,
+			dangerMode: true,
+		})
+		.then((willDelete) => {
+			if (willDelete) {
+				$.ajax({
+					type: 'POST',
+					url: '/Product/Delete', //'Url.Action("Delete", "Product")'
+					data: {
+						ID: $(this).attr('data-id')
+					}
+				})
+				.done(function (response) {
+					$("#tableContiner").html(response);
+
+					swal("Record deleted Successfully.", {
+						icon: "success",
+					});
+				})
+				.fail(function (XMLHttpRequest, textStatus, errorThrown) {
+					alert("FAIL");
+				});
+
+			}
+		});
+
+        //var confirmDelete = confirm('Are you sure you want to delete this?')
+
+        //if (confirmDelete) {
+        //    $.ajax({
+        //        type: 'POST',
+        //        url: '/Product/Delete',
+        //        data: {
+        //            ID: $(this).attr('data-id')
+        //        }
+        //    })
+        //        .done(function (response) {
+        //            $("#tableContiner").html(response);
+        //        })
+        //        .fail(function (XMLHttpRequest, textStatus, errorThrown) {
+        //            alert("FAIL");
+        //        });
+        //}
+    });
+
+    var products = [];
+    $(".addtoCart").click(function () {
+        var productID = $(this).attr('data-id');
+
+        products.push(productID);
+
+        $.cookie('CartProducts', products.join('-'), { path: '/' });
+
+        alert("Product added to Cart.");
+    });
+</script>
