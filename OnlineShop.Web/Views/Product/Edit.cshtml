@@ -34,7 +34,7 @@
     $("#updateBtn").click(function () {
         $.ajax({
             type: 'POST',
-            url: '/Product/Edit',
+            url: '@Url.Action("Edit","Product")', //'/Product/Edit'
             data: $("#editProduct").serialize()
         })
             .done(function (response) {
@@ -44,6 +44,10 @@
             .fail(function (XMLHttpRequest, textStatus, errorThrown) {
                 alert("FAIL");
             });
+    });
+    $("#cancelBtn").click(function () {
+        $("#actionContainer").html("");
+        focusAction("tableContiner");
     });
 </script>
 

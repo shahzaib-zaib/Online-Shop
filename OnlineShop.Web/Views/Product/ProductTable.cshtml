@@ -88,7 +88,7 @@
         var searchValue = $("#searchTxt").val();
 
         $.ajax({
-            url: '/Product/ProductTable',
+            url: '@Url.Action("ProductTable", "Product")', //'/Product/ProductTable'
             data: {
                 search: searchValue
             }
@@ -103,7 +103,7 @@
 
     $("#newBtn").click(function () {
         $.ajax({
-            url: '/Product/Create',
+            url: '@Url.Action("Create", "Product")', //'/Product/Create'
         })
             .done(function (response) {
                 $("#actionContainer").html(response);
@@ -117,7 +117,7 @@
 
     $(".editBtn").click(function () {
         $.ajax({
-            url: '/Product/Edit',
+            url: '@Url.Action("Edit", "Product")', //'/Product/Edit'
             data: {
                 ID: $(this).attr('data-id')
             }
@@ -145,7 +145,7 @@
 			if (willDelete) {
 				$.ajax({
 					type: 'POST',
-					url: '/Product/Delete', //'Url.Action("Delete", "Product")'
+                    url: '@Url.Action("Delete", "Product")', //'/Product/Delete'
 					data: {
 						ID: $(this).attr('data-id')
 					}

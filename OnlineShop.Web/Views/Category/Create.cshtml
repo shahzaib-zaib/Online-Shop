@@ -61,7 +61,7 @@
 
 		$.ajax({
 			type: 'POST',
-            url: '/Shared/UploadImage',
+            url: '@Url.Action("UploadImage", "Shared")', //'/Shared/UploadImage'
 			dataType: 'json',
 			data: formData,
 			contentType: false,
@@ -86,7 +86,7 @@
         if ($("#createCategory").valid()) {
             $.ajax({
                 type: 'POST',
-                url: '/Category/Create', //Url.Action("Create", "Category")
+                url: '@Url.Action("Create", "Category")', //'/Category/Create'
                 data: $("#createCategory").serialize()
             })
                 .done(function (response) {
