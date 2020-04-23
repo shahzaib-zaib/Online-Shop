@@ -64,7 +64,7 @@
     <script>
         $(".pageButtons").click(function () {
 		$.ajax({
-            url: '/Category/CategoryTable', //'Url.Action("CategoryTable", "Category")'
+            url: '@Url.Action("CategoryTable", "Category")', //'/Category/CategoryTable'
 			data: {
 				pageNo: $(this).attr("data-pageNo"),
 				search: '@Model.SearchTerm'
@@ -82,7 +82,7 @@
 		    var searchValue = $("#searchTxt").val();
 
 		    $.ajax({
-                url: '/Category/CategoryTable',//'Url.Action("CategoryTable", "Category")',
+                url: '@Url.Action("CategoryTable", "Category")',//'/Category/CategoryTable',
 			    data: {
 				    search: searchValue
 			    }
@@ -99,7 +99,7 @@
 		    var searchValue = '';
 
 		    $.ajax({
-                url: '/Category/CategoryTable',//'Url.Action("CategoryTable", "Category")',
+                url: '@Url.Action("CategoryTable", "Category")',//'/Category/CategoryTable',
 			    data: {
 				    search: searchValue
 			    }
@@ -114,7 +114,7 @@
 
 	    $("#newBtn").click(function () {
 		    $.ajax({
-                url: '/Category/Create',//'Url.Action("Create", "Category")',
+                url: '@Url.Action("Create", "Category")',//'/Category/Create',
 		    })
             .done(function (response) {
         	    $("#actionContainer").html(response);
@@ -128,7 +128,7 @@
 
 	    $(".editBtn").click(function () {
 		    $.ajax({
-			    url: '/Category/Edit', //'Url.Action("Edit", "Category")'
+                url: '@Url.Action("Edit", "Category")', //'/Category/Edit'
 			    data: {
 				    ID: $(this).attr('data-id')
 			    }
@@ -151,7 +151,7 @@
 		    {
 			    $.ajax({
 				    type: 'POST',
-				    url: '/Category/Delete', //'Url.Action("Delete", "Category")'
+                    url: '@Url.Action("Delete", "Category")', //'/Category/Delete'
 				    data: {
 					    ID: $(this).attr('data-id')
 				    }
