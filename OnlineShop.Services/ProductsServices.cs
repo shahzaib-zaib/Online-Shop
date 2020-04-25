@@ -11,6 +11,22 @@ namespace OnlineShop.Services
 {
     public class ProductsServices
     {
+        #region Singleton
+        public static ProductsServices Instance
+        {
+            get
+            {
+                if (instance == null) instance = new ProductsServices();
+
+                return instance;
+            }
+        }
+        private static ProductsServices instance { get; set; }
+
+        private ProductsServices()
+        {
+        }
+        #endregion
         public Product GetProduct(int ID)
         {
             using (var context = new OSContext())
@@ -25,11 +41,13 @@ namespace OnlineShop.Services
                 return context.Products.Where(product => IDs.Contains(product.ID)).ToList();
             }
         }
-        public List<Product> GetProducts()
+        public List<Product> GetProducts(int pageNo)
         {
+            int pageSize = 10;
+
             using (var context = new OSContext())
             {
-                return context.Products.Include(x => x.Category).ToList();
+                return context.Products.Skip((pageNo-1) * pageSize).Include(x => x.Category).ToList();
             }
         }
         public void SaveProduct(Product product)
