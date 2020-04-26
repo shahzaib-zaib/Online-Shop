@@ -22,10 +22,11 @@ namespace OnlineShop.Web.Controllers
 
         public ActionResult ProductTable(string search, int? pageNo)
         {
-            pageNo = pageNo.HasValue ? pageNo : 1;
-
             ProductSearchViewModel model = new ProductSearchViewModel();
-            model.Products = ProductsServices.Instance.GetProducts(pageNo.Value);
+
+            model.PageNo = pageNo.HasValue ? pageNo.Value > 0 ? pageNo.Value : 1 : 1;
+
+            model.Products = ProductsServices.Instance.GetProducts(model.PageNo);
             if (string.IsNullOrEmpty(search) == false)
             {
                 model.SearchTerm = search;

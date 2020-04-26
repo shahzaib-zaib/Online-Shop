@@ -81,9 +81,28 @@
 
         </tbody>
     </table>
+    <div>
+        <button class="pageButtons" data-pageNo="@(Model.PageNo - 1)">Previous</button>
+        <button class="pageButtons" data-pageNo="@(Model.PageNo + 1)">Next</button>
+    </div>
 </div>
 
 <script>
+    $(".pageButtons").click(function () {
+		$.ajax({
+			url: '@Url.Action("ProductTable", "Product")',
+			data: {
+                pageNo: $(this).attr('data-pageNo')
+			}
+		})
+        .done(function (response) {
+        	$("#tableContiner").html(response);
+        })
+        .fail(function (XMLHttpRequest, textStatus, errorThrown) {
+        	alert("FAIL");
+        });
+	});
+
     $("#searchBtn").click(function () {
         var searchValue = $("#searchTxt").val();
 

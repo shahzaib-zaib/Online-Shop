@@ -47,7 +47,7 @@ namespace OnlineShop.Services
 
             using (var context = new OSContext())
             {
-                return context.Products.Skip((pageNo-1) * pageSize).Include(x => x.Category).ToList();
+                return context.Products.OrderBy(x => x.ID).Skip((pageNo-1) * pageSize).Take(pageSize).Include(x => x.Category).ToList();
             }
         }
         public void SaveProduct(Product product)
