@@ -124,6 +124,23 @@
             });
     });
 
+    $("#resetBtn").click(function () {
+		var searchValue = '';
+
+		$.ajax({
+			url: '@Url.Action("ProductTable", "Product")',
+			data: {
+				search: searchValue
+			}
+		})
+        .done(function (response) {
+        	$("#tableContiner").html(response);
+        })
+        .fail(function (XMLHttpRequest, textStatus, errorThrown) {
+        	alert("FAIL");
+        });
+	});
+
     $("#newBtn").click(function () {
         $.ajax({
             url: '@Url.Action("Create", "Product")', //'/Product/Create'

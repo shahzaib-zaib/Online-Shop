@@ -71,7 +71,6 @@ namespace OnlineShop.Web.Controllers
         public ActionResult Edit(int ID)
         {
             var product = ProductsServices.Instance.GetProduct(ID);
-
             return PartialView(product);
         }
         [HttpPost]
