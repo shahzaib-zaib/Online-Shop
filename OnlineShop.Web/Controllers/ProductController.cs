@@ -11,9 +11,6 @@ namespace OnlineShop.Web.Controllers
 {
     public class ProductController : Controller
     {
-        //ProductsServices productServices = new ProductsServices();
-        CategoriesServices categoriesServices = new CategoriesServices();
-
         // GET: Product
         public ActionResult Index()
         {
@@ -25,6 +22,23 @@ namespace OnlineShop.Web.Controllers
             ProductSearchViewModel model = new ProductSearchViewModel();
 
             model.PageNo = pageNo.HasValue ? pageNo.Value > 0 ? pageNo.Value : 1 : 1;
+
+            ////similat to above
+            //if(pageNo.HasValue)
+            //{
+            //  if(pageNo.Value > 0)
+            //  {
+            //      model.PageNo = pageNo.Value;
+            //  }
+            //  else
+            //  {
+            //      model.PageNo = 1;
+            //  }
+            //}
+            //else
+            //{
+            //      model.PageNo = 1;
+            //}
 
             model.Products = ProductsServices.Instance.GetProducts(model.PageNo);
             if (string.IsNullOrEmpty(search) == false)
@@ -38,7 +52,7 @@ namespace OnlineShop.Web.Controllers
         [HttpGet]
         public ActionResult Create()
         {
-            var categories = categoriesServices.GetCategories();
+            var categories = CategoriesServices.Instance.GetCategories();
             return PartialView(categories);
         }
         [HttpPost]
@@ -48,7 +62,7 @@ namespace OnlineShop.Web.Controllers
             newProduct.Name = model.Name;
             newProduct.Description = model.Description;
             newProduct.Price = model.Price;
-            newProduct.Category = categoriesServices.GetCategory(model.CategoryID);
+            newProduct.Category = CategoriesServices.Instance.GetCategory(model.CategoryID);
             ProductsServices.Instance.SaveProduct(newProduct);
             return RedirectToAction("ProductTable");
         }

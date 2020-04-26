@@ -10,11 +10,10 @@ namespace OnlineShop.Web.Controllers
 {
     public class HomeController : Controller
     {
-        CategoriesServices categoryService = new CategoriesServices();
         public ActionResult Index()
         {
             HomeViewModel model = new HomeViewModel();
-            model.FeaturedCategories = categoryService.GetFeaturedCategories();
+            model.FeaturedCategories = CategoriesServices.Instance.GetFeaturedCategories();
 
             return View(model);
         }

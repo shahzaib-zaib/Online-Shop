@@ -82,12 +82,16 @@
         </tbody>
     </table>
     <div>
-        <button class="pageButtons" data-pageNo="@(Model.PageNo - 1)">Previous</button>
+        @if (Model.PageNo != 1)
+        {
+            <button class="pageButtons" data-pageNo="@(Model.PageNo - 1)">Previous</button>
+        }
         <button class="pageButtons" data-pageNo="@(Model.PageNo + 1)">Next</button>
     </div>
 </div>
 
 <script>
+
     $(".pageButtons").click(function () {
 		$.ajax({
 			url: '@Url.Action("ProductTable", "Product")',

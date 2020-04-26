@@ -11,19 +11,17 @@ namespace OnlineShop.Web.Controllers
 {
     public class CategoryController : Controller
     {
-        CategoriesServices categoryService = new CategoriesServices();
-
         [HttpGet]
         public ActionResult Index()
         {
-            var Categories = categoryService.GetCategories();
+            var Categories = CategoriesServices.Instance.GetCategories();
             return View(Categories);
         }
 
         public ActionResult CategoryTable(string search)
         {
             CategorySearchViewModel model = new CategorySearchViewModel();
-            model.Categories = categoryService.GetCategories();
+            model.Categories = CategoriesServices.Instance.GetCategories();
             if (!string.IsNullOrEmpty(search))
             {
                 model.SearchTerm = search;
@@ -49,7 +47,7 @@ namespace OnlineShop.Web.Controllers
             newCategory.ImageURL = model.ImageURL;
             newCategory.IsFeatured = model.IsFeatured;
 
-            categoryService.SaveCategory(newCategory);
+            CategoriesServices.Instance.SaveCategory(newCategory);
             return RedirectToAction("CategoryTable");
         }
         #endregion
@@ -59,7 +57,7 @@ namespace OnlineShop.Web.Controllers
         public ActionResult Edit(int ID)
         {
             EditCategoryViewModel model = new EditCategoryViewModel();
-            var category = categoryService.GetCategory(ID);
+            var category = CategoriesServices.Instance.GetCategory(ID);
 
             model.ID = category.ID;
             model.Name = category.Name;
@@ -73,14 +71,13 @@ namespace OnlineShop.Web.Controllers
         [HttpPost]
         public ActionResult Edit(EditCategoryViewModel model)
         {
-            CategoriesServices categoryService = new CategoriesServices();
-            var existingCategory = categoryService.GetCategory(model.ID);
+            var existingCategory = CategoriesServices.Instance.GetCategory(model.ID);
             existingCategory.Name = model.Name;
             existingCategory.Description = model.Description;
             existingCategory.ImageURL = model.ImageURL;
             existingCategory.IsFeatured = model.IsFeatured;
 
-            categoryService.UpdateCategory(existingCategory);
+            CategoriesServices.Instance.UpdateCategory(existingCategory);
             return RedirectToAction("CategoryTable");
         }
 
@@ -89,8 +86,7 @@ namespace OnlineShop.Web.Controllers
         [HttpPost]
         public ActionResult Delete(int ID)
         {
-            CategoriesServices categoryService = new CategoriesServices();
-            categoryService.DeleteCategory(ID);
+            CategoriesServices.Instance.DeleteCategory(ID);
             return RedirectToAction("CategoryTable");
         }
     }

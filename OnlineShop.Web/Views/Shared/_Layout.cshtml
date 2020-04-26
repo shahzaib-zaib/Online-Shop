@@ -1,7 +1,4 @@
-﻿@{ 
-    ConfigurationsService configurationsService = new ConfigurationsService();
-}
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
     <!-- Basic Page Needs -->
@@ -178,11 +175,11 @@
                             </form>
                             <ul class="flat-social">
 
-                                <li><a href="@configurationsService.GetConfig("FacebookURL").Value"><i class="fa fa-facebook"></i></a></li>
-                                <li><a href="@configurationsService.GetConfig("TwitterURL").Value"><i class="fa fa-twitter"></i></a></li>
-                                <li><a href="@configurationsService.GetConfig("GooglePlusURL").Value"><i class="fa fa-google"></i></a></li>
-                                <li><a href="@configurationsService.GetConfig("InstagramURL").Value"><i class="fa fa-behance"></i></a></li>
-                                <li><a href="@configurationsService.GetConfig("LinkedinURL").Value"><i class="fa fa-linkedin"></i></a></li>
+                                <li><a href="@ConfigurationsService.Instance.GetConfig("FacebookURL").Value"><i class="fa fa-facebook"></i></a></li>
+                                <li><a href="@ConfigurationsService.Instance.GetConfig("TwitterURL").Value"><i class="fa fa-twitter"></i></a></li>
+                                <li><a href="@ConfigurationsService.Instance.GetConfig("GooglePlusURL").Value"><i class="fa fa-google"></i></a></li>
+                                <li><a href="@ConfigurationsService.Instance.GetConfig("InstagramURL").Value"><i class="fa fa-behance"></i></a></li>
+                                <li><a href="@ConfigurationsService.Instance.GetConfig("LinkedinURL").Value"><i class="fa fa-linkedin"></i></a></li>
                             </ul><!-- /.flat-social -->
                         </div><!-- /.subscribe -->
                     </div>
@@ -229,9 +226,9 @@
                                 <a href="index.html"><img src="~/Content/images/logo@2x.png" alt="image" width="107" height="24"></a>
                             </div>
                             <ul class="flat-contact">
-                                <li class="address">@configurationsService.GetConfig("CompanyAddress").Value</li>
-                                <li class="phone">@configurationsService.GetConfig("PhoneNumber").Value</li>
-                                <li class="email">@configurationsService.GetConfig("CompanyEmail").Value</li>
+                                <li class="address">@ConfigurationsService.Instance.GetConfig("CompanyAddress").Value</li>
+                                <li class="phone">@ConfigurationsService.Instance.GetConfig("PhoneNumber").Value</li>
+                                <li class="email">@ConfigurationsService.Instance.GetConfig("CompanyEmail").Value</li>
                             </ul><!-- /.flat-contact -->
                         </div><!-- /.widget -->
                     </div><!-- /.col-md-3 -->
