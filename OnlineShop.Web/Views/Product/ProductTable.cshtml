@@ -142,18 +142,18 @@
 	});
 
     $("#newBtn").click(function () {
-        $.ajax({
-            url: '@Url.Action("Create", "Product")', //'/Product/Create'
-        })
-            .done(function (response) {
-                $("#actionContainer").html(response);
+		$.ajax({
+			url: '@Url.Action("Create", "Product")',
+		})
+        .done(function (response) {
+        	$("#actionContainer").html(response);
 
-                focusAction("actionContainer");
-            })
-            .fail(function (XMLHttpRequest, textStatus, errorThrown) {
-                alert("FAIL");
-            });
-    });
+        	focusAction("actionContainer");
+        })
+        .fail(function (XMLHttpRequest, textStatus, errorThrown) {
+        	alert("FAIL");
+        });
+	});
 
     $(".editBtn").click(function () {
         $.ajax({

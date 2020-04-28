@@ -52,8 +52,9 @@ namespace OnlineShop.Web.Controllers
         [HttpGet]
         public ActionResult Create()
         {
-            var categories = CategoriesServices.Instance.GetCategories();
-            return PartialView(categories);
+            NewProductViewModel model = new NewProductViewModel();
+            model.AvailableCategories = CategoriesServices.Instance.GetAllCategories();
+            return PartialView(model);
         }
         [HttpPost]
         public ActionResult Create(NewProductViewModel model)
@@ -63,6 +64,7 @@ namespace OnlineShop.Web.Controllers
             newProduct.Description = model.Description;
             newProduct.Price = model.Price;
             newProduct.Category = CategoriesServices.Instance.GetCategory(model.CategoryID);
+            newProduct.ImageURL = model.ImageURL;
             ProductsServices.Instance.SaveProduct(newProduct);
             return RedirectToAction("ProductTable");
         }
@@ -70,13 +72,32 @@ namespace OnlineShop.Web.Controllers
         [HttpGet]
         public ActionResult Edit(int ID)
         {
+            EditProductViewModel model = new EditProductViewModel();
+
             var product = ProductsServices.Instance.GetProduct(ID);
-            return PartialView(product);
+
+            model.ID = product.ID;
+            model.Name = product.Name;
+            model.Description = product.Description;
+            model.Price = product.Price;
+            model.CategoryID = product.Category != null ? product.Category.ID : 0;
+            model.ImageURL = product.ImageURL;
+
+            model.AvailableCategories = CategoriesServices.Instance.GetAllCategories();
+            return PartialView(model);
         }
         [HttpPost]
-        public ActionResult Edit(Product product)
+        public ActionResult Edit(EditProductViewModel model)
         {
-            ProductsServices.Instance.UpdateProduct(product);
+            var existingProduct = ProductsServices.Instance.GetProduct(model.ID);
+            existingProduct.Name = model.Name;
+            existingProduct.Description = model.Description;
+            existingProduct.Price = model.Price;
+            existingProduct.Category = CategoriesServices.Instance.GetCategory(model.CategoryID);
+            existingProduct.ImageURL = model.ImageURL;
+
+            ProductsServices.Instance.UpdateProduct(existingProduct);
+
             return RedirectToAction("ProductTable");
         }
 
