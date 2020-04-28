@@ -18,9 +18,10 @@ namespace OnlineShop.Web.Controllers
             return View(Categories);
         }
 
-        public ActionResult CategoryTable(string search)
+        public ActionResult CategoryTable(string search, int? pageNo)
         {
             CategorySearchViewModel model = new CategorySearchViewModel();
+            model.Pager = new Pager();
             model.Categories = CategoriesServices.Instance.GetCategories();
             if (!string.IsNullOrEmpty(search))
             {
