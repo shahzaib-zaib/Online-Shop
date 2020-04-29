@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Data.Entity;
 
 namespace OnlineShop.Services
 {
@@ -33,6 +34,14 @@ namespace OnlineShop.Services
                 return context.Categories.Find(ID);
             }
         }
+
+        public List<Category> GetAllCategories()
+        {
+            using (var context = new OSContext())
+            {
+                return context.Categories.ToList();
+            }
+        }
         public int GetCategoriesCount(string search)
         {
             using (var context = new OSContext())
@@ -49,18 +58,30 @@ namespace OnlineShop.Services
             }
         }
 
-        public List<Category> GetAllCategories()
+        public List<Category> GetCategories(string search, int pageNo)
         {
+            int pageSize = 5;
             using (var context = new OSContext())
             {
-                return context.Categories.ToList();
-            }
-        }
-        public List<Category> GetCategories()
-        {
-            using (var context = new OSContext())
-            {
-                return context.Categories.ToList();
+                if (!string.IsNullOrEmpty(search))
+                {
+                    return context.Categories.Where(category => category.Name != null && 
+                         category.Name.ToLower().Contains(search.ToLower()))
+                        .OrderBy(x => x.ID)
+                        .Skip((pageNo - 1) * pageSize)
+                        .Take(pageSize)
+                        .Include(x => x.Products)
+                        .ToList();
+                }
+                else
+                {
+                    return context.Categories
+                        .OrderBy(x => x.ID)
+                        .Skip((pageNo - 1) * pageSize)
+                        .Take(pageSize)
+                        .Include(x => x.Products)
+                        .ToList();
+                }
             }
         }
 

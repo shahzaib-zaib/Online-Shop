@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Data.Entity;
 
 namespace OnlineShop.Web.Controllers
 {
@@ -14,21 +15,28 @@ namespace OnlineShop.Web.Controllers
         [HttpGet]
         public ActionResult Index()
         {
-            var Categories = CategoriesServices.Instance.GetCategories();
-            return View(Categories);
+            return View();
         }
 
         public ActionResult CategoryTable(string search, int? pageNo)
         {
             CategorySearchViewModel model = new CategorySearchViewModel();
-            model.Pager = new Pager();
-            model.Categories = CategoriesServices.Instance.GetCategories();
-            if (!string.IsNullOrEmpty(search))
+            model.SearchTerm = search;
+            pageNo = pageNo.HasValue ? pageNo.Value > 0 ? pageNo.Value : 1 : 1;
+
+            var totalRecords = CategoriesServices.Instance.GetCategoriesCount(search);
+
+            model.Categories = CategoriesServices.Instance.GetCategories(search, pageNo.Value);
+            if (model.Categories != null)
             {
-                model.SearchTerm = search;
-                model.Categories = model.Categories.Where(a => a.Name != null && a.Name.ToLower().Contains(search.ToLower())).ToList();
+                model.Pager = new Pager(totalRecords, pageNo);
+
+                return PartialView("_CategoryTable", model);
             }
-            return PartialView("_CategoryTable", model);
+            else
+            {
+                return HttpNotFound();
+            }
         }
 
         #region Creation

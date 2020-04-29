@@ -19,9 +19,11 @@ namespace OnlineShop.Web.Controllers
 
         public ActionResult ProductTable(string search, int? pageNo)
         {
-            ProductSearchViewModel model = new ProductSearchViewModel();
 
-            model.PageNo = pageNo.HasValue ? pageNo.Value > 0 ? pageNo.Value : 1 : 1;
+            ProductSearchViewModel model = new ProductSearchViewModel();
+            model.SearchTerm = search;
+
+            pageNo = pageNo.HasValue ? pageNo.Value > 0 ? pageNo.Value : 1 : 1;
 
             ////similat to above
             //if(pageNo.HasValue)
@@ -39,13 +41,11 @@ namespace OnlineShop.Web.Controllers
             //{
             //      model.PageNo = 1;
             //}
+            var totalRecords = ProductsServices.Instance.GetProductsCount(search);
+            model.Products = ProductsServices.Instance.GetProducts(search, pageNo.Value);
 
-            model.Products = ProductsServices.Instance.GetProducts(model.PageNo);
-            if (string.IsNullOrEmpty(search) == false)
-            {
-                model.SearchTerm = search;
-                model.Products = model.Products.Where(p => p.Name != null  && p.Name.ToLower().Contains(search.ToLower())).ToList();
-            }
+            model.Pager = new Pager(totalRecords, pageNo);
+
             return PartialView(model);
         }
 
