@@ -44,7 +44,7 @@ namespace OnlineShop.Web.Controllers
             var totalRecords = ProductsServices.Instance.GetProductsCount(search);
             model.Products = ProductsServices.Instance.GetProducts(search, pageNo.Value);
 
-            model.Pager = new Pager(totalRecords, pageNo);
+            model.Pager = new Pager(totalRecords, pageNo, 3);
 
             return PartialView(model);
         }

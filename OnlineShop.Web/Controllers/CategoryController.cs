@@ -29,7 +29,7 @@ namespace OnlineShop.Web.Controllers
             model.Categories = CategoriesServices.Instance.GetCategories(search, pageNo.Value);
             if (model.Categories != null)
             {
-                model.Pager = new Pager(totalRecords, pageNo);
+                model.Pager = new Pager(totalRecords, pageNo, 3);
 
                 return PartialView("_CategoryTable", model);
             }
@@ -50,14 +50,21 @@ namespace OnlineShop.Web.Controllers
         [HttpPost]
         public ActionResult Create(NewCategoryViewModel model)
         {
-            var newCategory = new Category();
-            newCategory.Name = model.Name;
-            newCategory.Description = model.Description;
-            newCategory.ImageURL = model.ImageURL;
-            newCategory.IsFeatured = model.IsFeatured;
+            if (ModelState.IsValid)
+            {
+                var newCategory = new Category();
+                newCategory.Name = model.Name;
+                newCategory.Description = model.Description;
+                newCategory.ImageURL = model.ImageURL;
+                newCategory.IsFeatured = model.IsFeatured;
 
-            CategoriesServices.Instance.SaveCategory(newCategory);
-            return RedirectToAction("CategoryTable");
+                CategoriesServices.Instance.SaveCategory(newCategory);
+                return RedirectToAction("CategoryTable");
+            }
+            else
+            {
+                return new HttpStatusCodeResult(500);
+            }
         }
         #endregion
 

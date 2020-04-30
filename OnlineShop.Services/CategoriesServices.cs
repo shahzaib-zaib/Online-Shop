@@ -34,14 +34,6 @@ namespace OnlineShop.Services
                 return context.Categories.Find(ID);
             }
         }
-
-        public List<Category> GetAllCategories()
-        {
-            using (var context = new OSContext())
-            {
-                return context.Categories.ToList();
-            }
-        }
         public int GetCategoriesCount(string search)
         {
             using (var context = new OSContext())
@@ -57,10 +49,18 @@ namespace OnlineShop.Services
                 }
             }
         }
+        public List<Category> GetAllCategories()
+        {
+            using (var context = new OSContext())
+            {
+                return context.Categories.ToList();
+            }
+        }
+        
 
         public List<Category> GetCategories(string search, int pageNo)
         {
-            int pageSize = 5;
+            int pageSize = 3;
             using (var context = new OSContext())
             {
                 if (!string.IsNullOrEmpty(search))
