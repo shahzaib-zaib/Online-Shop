@@ -9,6 +9,7 @@ namespace OnlineShop.Web.ViewModels
     public class ProductsWidgetViewModel
     {
         public List<Product> Products { get; set; }
+        public bool IsLatestProducts { get; set; }
     }
 
 }

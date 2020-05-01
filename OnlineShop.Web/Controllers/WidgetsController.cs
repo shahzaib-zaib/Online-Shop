@@ -14,6 +14,7 @@ namespace OnlineShop.Web.Controllers
         public ActionResult Products(bool isLatesProducts)
         {
             ProductsWidgetViewModel model = new ProductsWidgetViewModel();
+            model.IsLatestProducts = isLatesProducts;
 
             if (isLatesProducts)
             {
@@ -21,9 +22,9 @@ namespace OnlineShop.Web.Controllers
             }
             else
             {
-
+                model.Products = ProductsServices.Instance.GetProducts(1, 8);
             }
-            return View();
+            return PartialView(model);
         }
 
     }
