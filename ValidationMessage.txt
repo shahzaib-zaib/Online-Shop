@@ -1,0 +1,6 @@
+if (ModelState.IsValid){}
+
+ModelState.AddModelError("","");
+
+@Html.ValidationMessageFor(m => m.Name)
+#Html.ValidationSummary()
