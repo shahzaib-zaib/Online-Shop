@@ -52,6 +52,14 @@ namespace OnlineShop.Services
                 //return context.Products.Include(x => x.Category).ToList();
             }
         }
+        public List<Product> GetLatesProducts(int numberOfProducts)
+        {
+            using (var context = new OSContext())
+            {
+                return context.Products.OrderByDescending(x => x.ID).Take(numberOfProducts).Include(x => x.Category).ToList();
+
+            }
+        }
         public List<Product> GetProducts(int pageNo, int pageSize)
         {
             using (var context = new OSContext())
@@ -111,7 +119,6 @@ namespace OnlineShop.Services
                 context.SaveChanges();
             }
         }
-
         public void UpdateProduct(Product product)
         {
             using (var context = new OSContext())
@@ -120,7 +127,6 @@ namespace OnlineShop.Services
                 context.SaveChanges();
             }
         }
-
         public void DeleteProduct(int ID)
         {
             using (var context = new OSContext())
