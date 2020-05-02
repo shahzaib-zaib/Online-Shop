@@ -6,16 +6,29 @@
 
 @if (Model != null && Model.Products != null)
 {
+    if (!Model.IsLatestProducts)
+    {
+        <ul class="flat-filter style-1 text-center max-width-682 clearfix">
+            <li class="active"><a href="#" data-filter="*">All Product</a></li>
+
+            @foreach (var category in Model.Products.Select(x => x.Category).ToList().Distinct())
+            {
+                <li><a href="#" data-filter=".@category.Name">For @category.Name</a></li>
+
+            }
+        </ul>
+        <div class="divider h54"></div>
+    }
     <div class="product-content product-fourcolumn clearfix">
         <ul class="product style2 clearfix">
             @foreach (var product in Model.Products)
             {
                 var imageURL = string.IsNullOrEmpty(product.ImageURL) ? defaultImageURL : product.ImageURL;
 
-                <li class="product-item">
+                <li class="product-item @product.Category.Name">
                     <div class="product-thumb clearfix">
-                        <a href="@imageURL" class="product-thumb">
-                            <img src="" alt="image">
+                        <a href="#" class="product-thumb">
+                            <img src="@imageURL" alt="image">
                         </a>
                         @if (Model.IsLatestProducts)
                         {
