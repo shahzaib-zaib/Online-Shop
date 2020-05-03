@@ -10,6 +10,14 @@ namespace OnlineShop.Web.Controllers
 {
     public class ShopController : Controller
     {
+        public ActionResult Index(string searchTerm, int? minimumPrce, int? maximunPrice, int? categoryID)
+        {
+            ShopViewModel model = new ShopViewModel();
+
+            model.FeaturedCategories = CategoriesServices.Instance.GetFeaturedCategories();
+
+            return View();
+        }
         public ActionResult Checkout()
         {
             CheckoutViewModel model = new CheckoutViewModel();

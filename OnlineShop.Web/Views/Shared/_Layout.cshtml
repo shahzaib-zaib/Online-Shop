@@ -84,14 +84,6 @@
                                     <a href="@Url.Action("Index", "Shop")">SHOP</a>
                                 </li>
                                 <li>
-                                    <a href="coming-soon.html">PAGE</a>
-                                    <ul class="submenu">
-                                        <li><a href="coming-soon.html">Coming Soon</a></li>
-                                        <li><a href="404.html"> Error 404</a></li>
-                                        <li><a href="faqs.html">FAQs</a></li>
-                                    </ul>
-                                </li>
-                                <li>
                                     <a href="blog-list.html">BLOG</a>
                                     <ul class="submenu">
                                         <li><a href="blog-list-1.html">Blog 1</a></li>
@@ -187,7 +179,7 @@
                     <div class="col-sm-6 col-md-3">
                         <div class="widget widget-brand">
                             <div class="logo logo-footer">
-                                <a href="index.html"><img src="#" alt="image" width="107" height="24"></a>
+                                <a href="@Url.Action("Index", "Home")"><img src="~/Content/images/OnlineShop(1).png" alt="image" width="200" height="54"></a>
                             </div>
                             <ul class="flat-contact">
                                 <li class="address">@ConfigurationsService.Instance.GetConfig("CompanyAddress").Value</li>
