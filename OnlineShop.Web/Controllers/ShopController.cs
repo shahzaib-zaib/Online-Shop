@@ -23,6 +23,15 @@ namespace OnlineShop.Web.Controllers
 
             return View(model);
         }
+
+        public ActionResult FilterProducts(string searchTerm, int? minimumPrce, int? maximunPrice, int? categoryID, int? sortBy)
+        {
+            FilterProductsViewModel model = new FilterProductsViewModel();
+
+            model.Products = ProductsServices.Instance.SearchProducts(searchTerm, minimumPrce, maximunPrice, categoryID, sortBy);
+
+            return PartialView(model);
+        }
         public ActionResult Checkout()
         {
             CheckoutViewModel model = new CheckoutViewModel();
