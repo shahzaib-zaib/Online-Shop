@@ -1,4 +1,5 @@
-﻿
+﻿@using OnlineShop.Web.Code
+@model ShopViewModel
 @{
     ViewBag.Title = "Index";
 
@@ -23,7 +24,7 @@
             <div class="col-md-3">
                 <div class="sidebar slidebar-shop">
                     <div class="widget widget-search">
-                        <form role="search" method="get" class="search-form" action="#">
+                        <form role="search" method="get" class="search-form" action="@Url.Action("Index", "Shop")">
                             <label>
                                 <input type="search" class="search-field" placeholder="Search …" value="" name="searchTerm">
                             </label>
@@ -35,10 +36,10 @@
                             Sort By
                         </h5>
                         <ul>
-                            <li><a data-href="#">Default - Newest</a></li>
-                            <li><a data-href="#">Popularity</a></li>
-                            <li><a data-href="#">Price: low to high</a></li>
-                            <li><a data-href="#">Price: high to low</a></li>
+                            <li><a data-href="@Url.Action("Index","Shop", new { sortBy = (int)SortByEnums.Default})" class="@(Model.SortBy.HasValue ? Model.SortBy.Value == (int)SortByEnums.Default ? "active" : string.Empty : string.Empty)">Default - Newest</a></li>
+                            <li><a data-href="@Url.Action("Index","Shop", new { sortBy = (int)SortByEnums.Popularity})" class="@(Model.SortBy.HasValue ? Model.SortBy.Value == (int)SortByEnums.Popularity ? "active" : string.Empty : string.Empty)">Popularity</a></li>
+                            <li><a data-href="@Url.Action("Index", "Shop", new { sortBy = (int)SortByEnums.PriceLowToHigh})" class="@(Model.SortBy.HasValue ? Model.SortBy.Value == (int)SortByEnums.PriceLowToHigh ? "active" : string.Empty : string.Empty)">Price: low to high</a></li>
+                            <li><a data-href="@Url.Action("Index","Shop", new { sortBy = (int)SortByEnums.PriceHighToLow})" class="@(Model.SortBy.HasValue ? Model.SortBy.Value == (int)SortByEnums.PriceHighToLow ? "active" : string.Empty : string.Empty)">Price: high to low</a></li>
                         </ul>
                     </div>
                     <div class="widget widget_tag">
@@ -46,7 +47,10 @@
                             Featured Categories
                         </h5>
                         <div class="tag-list">
-
+                            @foreach (var category in Model.FeaturedCategories)
+                            {
+                            <a href="@Url.Action("Index", "Shop", new { categoryID = category.ID})">@category.Name</a>
+                            }
                         </div>
                     </div>
                     <div class="widget widget-price">

@@ -10,13 +10,18 @@ namespace OnlineShop.Web.Controllers
 {
     public class ShopController : Controller
     {
-        public ActionResult Index(string searchTerm, int? minimumPrce, int? maximunPrice, int? categoryID)
+        public ActionResult Index(string searchTerm, int? minimumPrce, int? maximunPrice, int? categoryID, int? sortBy)
         {
             ShopViewModel model = new ShopViewModel();
 
             model.FeaturedCategories = CategoriesServices.Instance.GetFeaturedCategories();
+            model.MaximumPrice = ProductsServices.Instance.GetMaximumPrice();
 
-            return View();
+            model.Products = ProductsServices.Instance.SearchProducts(searchTerm, minimumPrce, maximunPrice, categoryID, sortBy);
+
+            model.SortBy = sortBy;
+
+            return View(model);
         }
         public ActionResult Checkout()
         {

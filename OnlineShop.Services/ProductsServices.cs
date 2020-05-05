@@ -26,7 +26,56 @@ namespace OnlineShop.Services
         private ProductsServices()
         {
         }
+
         #endregion
+
+        public List<Product> SearchProducts(string searchTerm, int? minimumPrce, int? maximunPrice, int? categoryID, int? sortBy)
+        {
+            using (var context = new OSContext())
+            {
+                var products = context.Products.ToList();
+
+                if (categoryID.HasValue)
+                {
+                    products = products.Where(x => x.Category.ID == categoryID.Value).ToList();
+                }
+                if (!string.IsNullOrEmpty(searchTerm))
+                {
+                    products = products.Where(x => x.Name.ToLower().Contains(searchTerm.ToLower())).ToList();
+                }
+                if (minimumPrce.HasValue)
+                {
+                    products = products.Where(x => x.Price >= minimumPrce.Value).ToList();
+                }
+                if (maximunPrice.HasValue)
+                {
+                    products = products.Where(x => x.Price <= maximunPrice.Value).ToList();
+                }
+                if (sortBy.HasValue)
+                {
+                    switch (sortBy.Value)
+                    {
+                        case 2:
+                            products = products.OrderByDescending(x => x.ID).ToList();
+                            break;
+                        case 3:
+                            products = products.OrderBy(x => x.Price).ToList();
+                            break;
+                        default:
+                            products = products.OrderByDescending(x => x.Price).ToList();
+                            break;
+                    }
+                }
+                return products;
+            }
+        }
+        public int GetMaximumPrice()
+        {
+            using (var context = new OSContext())
+            {
+                return (int)(context.Products.Max(x => x.Price));
+            }
+        }
         public Product GetProduct(int ID)
         {
             using (var context = new OSContext())
