@@ -20,6 +20,7 @@ namespace OnlineShop.Web.Controllers
             model.Products = ProductsServices.Instance.SearchProducts(searchTerm, minimumPrce, maximunPrice, categoryID, sortBy);
 
             model.SortBy = sortBy;
+            model.CategoryID = categoryID;
 
             return View(model);
         }

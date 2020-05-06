@@ -49,7 +49,7 @@
                         <div class="tag-list">
                             @foreach (var category in Model.FeaturedCategories)
                             {
-                            <a href="@Url.Action("Index", "Shop", new { categoryID = category.ID })">@category.Name</a>
+                            <a href="@Url.Action("Index", "Shop", new { categoryID = category.ID })" class="@(Model.CategoryID.HasValue && Model.CategoryID.Value == category.ID ? "active" : string.Empty)">@category.Name</a>
                             }
                         </div>
                     </div>
