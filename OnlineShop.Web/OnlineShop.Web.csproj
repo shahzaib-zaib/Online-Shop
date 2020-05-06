@@ -282,10 +282,7 @@
     <Content Include="Content\images\maps\map_icon.png" />
     <Content Include="Content\images\mega-menu\1.jpg" />
     <Content Include="Content\images\OnlineShop%281%29.png" />
-    <Content Include="Content\images\parallax\bg-parallax1.jpg" />
-    <Content Include="Content\images\parallax\bg-parallax2.jpg" />
     <Content Include="Content\images\parallax\bg-parallax3.jpg" />
-    <Content Include="Content\images\parallax\bg-parallax4.jpg" />
     <Content Include="Content\images\pattern\1.png" />
     <Content Include="Content\images\pattern\10.png" />
     <Content Include="Content\images\pattern\2.png" />
@@ -403,12 +400,7 @@
     <Content Include="Content\images\shop\sh-detail\thumb-detail-11.jpg" />
     <Content Include="Content\images\shop\sh-detail\thumb-detail-12.jpg" />
     <Content Include="Content\images\slider\slider-bg-1.jpg" />
-    <Content Include="Content\images\slider\slider-bg-2.jpg" />
-    <Content Include="Content\images\slider\slider-bg-3.jpg" />
-    <Content Include="Content\images\slider\slider-bg-4.jpg" />
     <Content Include="Content\images\slider\slider-bg-5.jpg" />
-    <Content Include="Content\images\slider\slider-bg-7.jpg" />
-    <Content Include="Content\images\slider\slider-bg-8.jpg" />
     <Content Include="Content\images\system\default-image.jpg" />
     <Content Include="Content\images\system\placeholder-image.png" />
     <Content Include="Content\images\wordpress-version.png" />
