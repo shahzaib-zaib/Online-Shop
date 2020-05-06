@@ -10,27 +10,33 @@ namespace OnlineShop.Web.Controllers
 {
     public class ShopController : Controller
     {
-        public ActionResult Index(string searchTerm, int? minimumPrce, int? maximunPrice, int? categoryID, int? sortBy)
+        public ActionResult Index(string searchTerm, int? minimumPrce, int? maximunPrice, int? categoryID, int? sortBy, int? pageNo)
         {
             ShopViewModel model = new ShopViewModel();
 
             model.FeaturedCategories = CategoriesServices.Instance.GetFeaturedCategories();
             model.MaximumPrice = ProductsServices.Instance.GetMaximumPrice();
 
-            model.Products = ProductsServices.Instance.SearchProducts(searchTerm, minimumPrce, maximunPrice, categoryID, sortBy);
+            pageNo = pageNo.HasValue ? pageNo.Value > 0 ? pageNo.Value : 1 : 1;
+
+            model.Products = ProductsServices.Instance.SearchProducts(searchTerm, minimumPrce, maximunPrice, categoryID, sortBy, pageNo.Value, 10);
 
             model.SortBy = sortBy;
             model.CategoryID = categoryID;
 
+            int totalCount = ProductsServices.Instance.SearchProductsCount(searchTerm, minimumPrce, maximunPrice, categoryID, sortBy);
+            model.Pager = new Pager(totalCount, pageNo);
+
             return View(model);
         }
 
-        public ActionResult FilterProducts(string searchTerm, int? minimumPrce, int? maximunPrice, int? categoryID, int? sortBy)
+        public ActionResult FilterProducts(string searchTerm, int? minimumPrce, int? maximunPrice, int? categoryID, int? sortBy, int? pageNo)
         {
             FilterProductsViewModel model = new FilterProductsViewModel();
 
-            model.Products = ProductsServices.Instance.SearchProducts(searchTerm, minimumPrce, maximunPrice, categoryID, sortBy);
-
+            model.Products = ProductsServices.Instance.SearchProducts(searchTerm, minimumPrce, maximunPrice, categoryID, sortBy, pageNo.Value, 10);
+            int totalCount = ProductsServices.Instance.SearchProductsCount(searchTerm, minimumPrce, maximunPrice, categoryID, sortBy);
+            model.Pager = new Pager(totalCount, pageNo);
             return PartialView(model);
         }
         public ActionResult Checkout()

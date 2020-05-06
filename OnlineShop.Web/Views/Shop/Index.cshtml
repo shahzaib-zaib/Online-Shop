@@ -36,10 +36,10 @@
                             Sort By
                         </h5>
                         <ul>
-                            <li><a data-href="@Url.Action("Index", "Shop", new { sortBy = (int)SortByEnums.Default })" class="@(Model.SortBy.HasValue ? Model.SortBy.Value == (int)SortByEnums.Default ? "active" : string.Empty : string.Empty)">Default - Newest</a></li>
-                            <li><a data-href="@Url.Action("Index", "Shop", new { sortBy = (int)SortByEnums.Popularity })" class="@(Model.SortBy.HasValue ? Model.SortBy.Value == (int)SortByEnums.Popularity ? "active" : string.Empty : string.Empty)">Popularity</a></li>
-                            <li><a data-href="@Url.Action("Index", "Shop", new { sortBy = (int)SortByEnums.PriceLowToHigh })" class="@(Model.SortBy.HasValue ? Model.SortBy.Value == (int)SortByEnums.PriceLowToHigh ? "active" : string.Empty : string.Empty)">Price: low to high</a></li>
-                            <li><a data-href="@Url.Action("Index", "Shop", new { sortBy = (int)SortByEnums.PriceHighToLow })" class="@(Model.SortBy.HasValue ? Model.SortBy.Value == (int)SortByEnums.PriceHighToLow ? "active" : string.Empty : string.Empty)">Price: high to low</a></li>
+                            <li><a data-href="@Url.Action("Index", "Shop", new { sortBy = (int)SortByEnums.Default, categoryID = Model.CategoryID })" class="@(Model.SortBy.HasValue ? Model.SortBy.Value == (int)SortByEnums.Default ? "active" : string.Empty : string.Empty)">Default - Newest</a></li>
+                            <li><a data-href="@Url.Action("Index", "Shop", new { sortBy = (int)SortByEnums.Popularity, categoryID = Model.CategoryID })" class="@(Model.SortBy.HasValue ? Model.SortBy.Value == (int)SortByEnums.Popularity ? "active" : string.Empty : string.Empty)">Popularity</a></li>
+                            <li><a data-href="@Url.Action("Index", "Shop", new { sortBy = (int)SortByEnums.PriceLowToHigh, categoryID = Model.CategoryID })" class="@(Model.SortBy.HasValue ? Model.SortBy.Value == (int)SortByEnums.PriceLowToHigh ? "active" : string.Empty : string.Empty)">Price: low to high</a></li>
+                            <li><a data-href="@Url.Action("Index", "Shop", new { sortBy = (int)SortByEnums.PriceHighToLow, categoryID = Model.CategoryID })" class="@(Model.SortBy.HasValue ? Model.SortBy.Value == (int)SortByEnums.PriceHighToLow ? "active" : string.Empty : string.Empty)">Price: high to low</a></li>
                         </ul>
                     </div>
                     <div class="widget widget_tag">
@@ -49,7 +49,7 @@
                         <div class="tag-list">
                             @foreach (var category in Model.FeaturedCategories)
                             {
-                            <a href="@Url.Action("Index", "Shop", new { categoryID = category.ID })" class="@(Model.CategoryID.HasValue && Model.CategoryID.Value == category.ID ? "active" : string.Empty)">@category.Name</a>
+                            <a href="@Url.Action("Index", "Shop", new { categoryID = category.ID, sortBy = Model.SortBy })" class="@(Model.CategoryID.HasValue && Model.CategoryID.Value == category.ID ? "active" : string.Empty)">@category.Name</a>
                             }
                         </div>
                     </div>
@@ -62,7 +62,7 @@
                             </p>
                         </div>
                     </div><!-- /.widget -->
-                    <a href="#" class="btn btn-danger">Reset Filters</a>
+                    <a href="@Url.Action("Index","Shop")" class="btn btn-danger">Reset Filters</a>
                 </div><!-- /.sidebar -->
             </div><!-- /.col-md-3 -->
             <div class="col-md-9">
@@ -70,7 +70,9 @@
                     @{
                         var filterProductsViewModel = new FilterProductsViewModel();
                         filterProductsViewModel.Products = Model.Products;
-
+                        filterProductsViewModel.Pager = Model.Pager;
+                        filterProductsViewModel.CategoryID = Model.CategoryID;
+                        filterProductsViewModel.SortBy = Model.SortBy;
                         Html.RenderPartial("FilterProducts", filterProductsViewModel);
                     }
                 </div>
