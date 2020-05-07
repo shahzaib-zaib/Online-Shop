@@ -23,7 +23,24 @@ namespace OnlineShop.Web.Controllers
         {
             CategorySearchViewModel model = new CategorySearchViewModel();
             model.SearchTerm = search;
-            pageNo = pageNo.HasValue ? pageNo.Value > 0 ? pageNo.Value : 1 : 1;
+            pageNo = pageNo.HasValue ? pageNo.Value > 0 ? pageNo.Value : 1 : 1; //Use this or else Down one
+
+            ////similat to above
+            //if(pageNo.HasValue)
+            //{
+            //  if(pageNo.Value > 0)
+            //  {
+            //      model.PageNo = pageNo.Value;
+            //  }
+            //  else
+            //  {
+            //      model.PageNo = 1;
+            //  }
+            //}
+            //else
+            //{
+            //      model.PageNo = 1;
+            //}
 
             var totalRecords = CategoriesServices.Instance.GetCategoriesCount(search);
 

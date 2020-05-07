@@ -142,14 +142,6 @@ namespace OnlineShop.Services
                 //return context.Products.Include(x => x.Category).ToList();
             }
         }
-        public List<Product> GetLatesProducts(int numberOfProducts)
-        {
-            using (var context = new OSContext())
-            {
-                return context.Products.OrderByDescending(x => x.ID).Take(numberOfProducts).Include(x => x.Category).ToList();
-
-            }
-        }
         public List<Product> GetProducts(int pageNo, int pageSize)
         {
             using (var context = new OSContext())
@@ -157,18 +149,8 @@ namespace OnlineShop.Services
                 return context.Products.OrderByDescending(x => x.ID).Skip((pageNo - 1) * pageSize).Take(pageSize).Include(x => x.Category).ToList();
             }
         }
-
-        public List<Product> GetProductsByCategory(int categoryID, int pageSize)
+        public List<Product> GetProducts(string search, int pageNo, int pageSize)
         {
-            using (var context = new OSContext())
-            {
-                return context.Products.Where(x => x.Category.ID == categoryID).OrderByDescending(x => x.ID).Take(pageSize).Include(x => x.Category).ToList();
-            }
-        }
-
-        public List<Product> GetProducts(string search, int pageNo)
-        {
-            int pageSize = 3;
             using (var context = new OSContext())
             {
                 if (!string.IsNullOrEmpty(search))
@@ -192,6 +174,23 @@ namespace OnlineShop.Services
                 }
             }
         }
+        public List<Product> GetLatesProducts(int numberOfProducts)
+        {
+            using (var context = new OSContext())
+            {
+                return context.Products.OrderByDescending(x => x.ID).Take(numberOfProducts).Include(x => x.Category).ToList();
+
+            }
+        }
+
+        public List<Product> GetProductsByCategory(int categoryID, int pageSize)
+        {
+            using (var context = new OSContext())
+            {
+                return context.Products.Where(x => x.Category.ID == categoryID).OrderByDescending(x => x.ID).Take(pageSize).Include(x => x.Category).ToList();
+            }
+        }
+        
         public int GetProductsCount(string search)
         {
             using (var context = new OSContext())

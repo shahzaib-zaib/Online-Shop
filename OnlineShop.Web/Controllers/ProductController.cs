@@ -19,11 +19,10 @@ namespace OnlineShop.Web.Controllers
 
         public ActionResult ProductTable(string search, int? pageNo)
         {
-
+            var pageSize = ConfigurationsService.Instance.PageSize();
             ProductSearchViewModel model = new ProductSearchViewModel();
             model.SearchTerm = search;
-
-            pageNo = pageNo.HasValue ? pageNo.Value > 0 ? pageNo.Value : 1 : 1;
+            pageNo = pageNo.HasValue ? pageNo.Value > 0 ? pageNo.Value : 1 : 1; //Use this or else Down one
 
             ////similat to above
             //if(pageNo.HasValue)
@@ -42,9 +41,9 @@ namespace OnlineShop.Web.Controllers
             //      model.PageNo = 1;
             //}
             var totalRecords = ProductsServices.Instance.GetProductsCount(search);
-            model.Products = ProductsServices.Instance.GetProducts(search, pageNo.Value);
+            model.Products = ProductsServices.Instance.GetProducts(search, pageNo.Value, pageSize);
 
-            model.Pager = new Pager(totalRecords, pageNo, 3);
+            model.Pager = new Pager(totalRecords, pageNo, pageSize);
 
             return PartialView(model);
         }

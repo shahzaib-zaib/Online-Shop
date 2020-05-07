@@ -116,7 +116,9 @@ namespace OnlineShop.Services
             using (var context = new OSContext())
             {
                 //context.Entry(category).State = System.Data.Entity.EntityState.Deleted;
-                var category = context.Categories.Find(ID);
+
+                var category = context.Categories.Where(x => x.ID == ID).Include(x => x.Products).FirstOrDefault();
+                context.Products.RemoveRange(category.Products); //first delete products of this category
                 context.Categories.Remove(category);
                 context.SaveChanges();
             }
