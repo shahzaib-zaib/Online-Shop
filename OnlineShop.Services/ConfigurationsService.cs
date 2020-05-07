@@ -39,7 +39,7 @@ namespace OnlineShop.Services
             using (var context = new OSContext())
             {
                 var pageSizeConfig = context.Configurations.Find("PageSize");
-                return pageSizeConfig != null ? int.Parse(pageSizeConfig.Value) : 10;
+                return pageSizeConfig != null ? int.Parse(pageSizeConfig.Value) : 5;
             }
         }
     }

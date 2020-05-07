@@ -113,7 +113,7 @@
 		$.ajax({
 			url: '@Url.Action("ProductTable", "Product")',
 			data: {
-                pageNo: $(this).attr('data-pageNo')
+                pageNo: $(this).attr('data-pageno')
 			}
 		})
         .done(function (response) {

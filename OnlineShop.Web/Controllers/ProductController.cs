@@ -58,14 +58,21 @@ namespace OnlineShop.Web.Controllers
         [HttpPost]
         public ActionResult Create(NewProductViewModel model)
         {
-            var newProduct = new Product();
-            newProduct.Name = model.Name;
-            newProduct.Description = model.Description;
-            newProduct.Price = model.Price;
-            newProduct.Category = CategoriesServices.Instance.GetCategory(model.CategoryID);
-            newProduct.ImageURL = model.ImageURL;
-            ProductsServices.Instance.SaveProduct(newProduct);
-            return RedirectToAction("ProductTable");
+            if (ModelState.IsValid)
+            {
+                var newProduct = new Product();
+                newProduct.Name = model.Name;
+                newProduct.Description = model.Description;
+                newProduct.Price = model.Price;
+                newProduct.Category = CategoriesServices.Instance.GetCategory(model.CategoryID);
+                newProduct.ImageURL = model.ImageURL;
+                ProductsServices.Instance.SaveProduct(newProduct);
+                return RedirectToAction("ProductTable");
+            }
+            else
+            {
+                return PartialView(model);
+            }
         }
 
         [HttpGet]
@@ -93,7 +100,12 @@ namespace OnlineShop.Web.Controllers
             existingProduct.Description = model.Description;
             existingProduct.Price = model.Price;
             existingProduct.Category = CategoriesServices.Instance.GetCategory(model.CategoryID);
-            existingProduct.ImageURL = model.ImageURL;
+
+            //Don't update imageURL if it's empty
+            if (!string.IsNullOrEmpty(model.ImageURL))
+            {
+                existingProduct.ImageURL = model.ImageURL;
+            }
 
             ProductsServices.Instance.UpdateProduct(existingProduct);
 
