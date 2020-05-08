@@ -18,13 +18,12 @@ namespace OnlineShop.Web.Controllers
             model.MaximumPrice = ProductsServices.Instance.GetMaximumPrice();
 
             pageNo = pageNo.HasValue ? pageNo.Value > 0 ? pageNo.Value : 1 : 1;
-
-            model.Products = ProductsServices.Instance.SearchProducts(searchTerm, minimumPrce, maximunPrice, categoryID, sortBy, pageNo.Value, 10);
-
             model.SortBy = sortBy;
             model.CategoryID = categoryID;
 
             int totalCount = ProductsServices.Instance.SearchProductsCount(searchTerm, minimumPrce, maximunPrice, categoryID, sortBy);
+            model.Products = ProductsServices.Instance.SearchProducts(searchTerm, minimumPrce, maximunPrice, categoryID, sortBy, pageNo.Value, 10);
+
             model.Pager = new Pager(totalCount, pageNo);
 
             return View(model);
@@ -34,8 +33,12 @@ namespace OnlineShop.Web.Controllers
         {
             FilterProductsViewModel model = new FilterProductsViewModel();
 
-            model.Products = ProductsServices.Instance.SearchProducts(searchTerm, minimumPrce, maximunPrice, categoryID, sortBy, pageNo.Value, 10);
+            pageNo = pageNo.HasValue ? pageNo.Value > 0 ? pageNo.Value : 1 : 1;
+            model.SortBy = sortBy;
+            model.CategoryID = categoryID;
+
             int totalCount = ProductsServices.Instance.SearchProductsCount(searchTerm, minimumPrce, maximunPrice, categoryID, sortBy);
+            model.Products = ProductsServices.Instance.SearchProducts(searchTerm, minimumPrce, maximunPrice, categoryID, sortBy, pageNo.Value, 10);
             model.Pager = new Pager(totalCount, pageNo);
             return PartialView(model);
         }

@@ -93,7 +93,8 @@ namespace OnlineShop.Web.Controllers
             existingProduct.Name = model.Name;
             existingProduct.Description = model.Description;
             existingProduct.Price = model.Price;
-            existingProduct.Category = CategoriesServices.Instance.GetCategory(model.CategoryID);
+            existingProduct.Category = null; //mark it null. Because the referncy key is changed below
+            existingProduct.CategoryID = model.CategoryID;
 
             //Don't update imageURL if it's empty
             if (!string.IsNullOrEmpty(model.ImageURL))

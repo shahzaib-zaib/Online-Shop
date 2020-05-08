@@ -72,6 +72,10 @@
     <Compile Include="Migrations\202004302319069_addedBasicValidations.Designer.cs">
       <DependentUpon>202004302319069_addedBasicValidations.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202005082044259_addedCategoryIDInProduct.cs" />
+    <Compile Include="Migrations\202005082044259_addedCategoryIDInProduct.Designer.cs">
+      <DependentUpon>202005082044259_addedCategoryIDInProduct.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="OSContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -104,6 +108,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202004302319069_addedBasicValidations.resx">
       <DependentUpon>202004302319069_addedBasicValidations.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005082044259_addedCategoryIDInProduct.resx">
+      <DependentUpon>202005082044259_addedCategoryIDInProduct.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
