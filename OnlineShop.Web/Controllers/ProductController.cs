@@ -58,21 +58,15 @@ namespace OnlineShop.Web.Controllers
         [HttpPost]
         public ActionResult Create(NewProductViewModel model)
         {
-            if (ModelState.IsValid)
-            {
-                var newProduct = new Product();
-                newProduct.Name = model.Name;
-                newProduct.Description = model.Description;
-                newProduct.Price = model.Price;
-                newProduct.Category = CategoriesServices.Instance.GetCategory(model.CategoryID);
-                newProduct.ImageURL = model.ImageURL;
-                ProductsServices.Instance.SaveProduct(newProduct);
-                return RedirectToAction("ProductTable");
-            }
-            else
-            {
-                return PartialView(model);
-            }
+            var newProduct = new Product();
+            newProduct.Name = model.Name;
+            newProduct.Description = model.Description;
+            newProduct.Price = model.Price;
+            newProduct.Category = CategoriesServices.Instance.GetCategory(model.CategoryID);
+            newProduct.ImageURL = model.ImageURL;
+            ProductsServices.Instance.SaveProduct(newProduct);
+            return RedirectToAction("ProductTable");
+            
         }
 
         [HttpGet]
