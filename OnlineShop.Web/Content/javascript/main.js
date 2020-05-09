@@ -7,8 +7,6 @@
   * goTop
   * parallax
   * removePreloader
-  * hideLoader
-  * showLoader
   * flatPrice
   * flatFilterBox
   * flatShopSearch
@@ -375,16 +373,6 @@
             $(".loader").fadeOut();
             $("#loading-overlay").delay(500).fadeOut('slow');
       });
-    };
-
-    function hideLoader() {
-        $(".loader").fadeOut();
-        $("#loading-overlay").delay(500).fadeOut('slow');
-    };
-
-    function showLoader() {
-        $(".loader").fadeIn();
-        $("#loading-overlay").delay(500).fadeIn('slow');
     };
 
     //var flatPrice = function() {
@@ -817,8 +805,6 @@
    	// Dom Ready
 	$(function() {
       removePreloader();
-      hideLoader();
-      showLoader();
       goTop();
       parallax(); 
       flatRetinaLogo();
@@ -844,5 +830,30 @@
       flatIsotope();
       flatCarouselOwl();
       flatContentBox();
+      updateCartProducts();
    	});
 })(jQuery);
+
+function hideLoader() {
+    $(".loader").hide();
+    $("#loading-overlay").hide();
+};
+
+function showLoader() {
+    $(".loader").show();
+    $("#loading-overlay").show();
+};
+
+function updateCartProducts() {
+    var cartProducts;
+    var existingCookieData = $.cookie('CartProducts');
+
+    if (existingCookieData != undefined && existingCookieData != "" && existingCookieData != null) {
+        cartProducts = existingCookieData.split('-');
+    }
+    else {
+        cartProducts = [];
+    }
+
+    $("#cartProductsCount").html(cartProducts.length);
+};
