@@ -47,6 +47,7 @@ namespace OnlineShop.Web.Controllers
             model.Pager = new Pager(totalCount, pageNo, pageSize);
             return PartialView(model);
         }
+        [Authorize]
         public ActionResult Checkout()
         {
             CheckoutViewModel model = new CheckoutViewModel();

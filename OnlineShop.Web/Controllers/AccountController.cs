@@ -151,7 +151,7 @@ namespace OnlineShop.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new ApplicationUser { UserName = model.Email, Fname = model.Fname, Lname = model.Lname, Gender = model.Gender, Address = model.Address, Country = model.Country, City = model.City, Email = model.Email };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
