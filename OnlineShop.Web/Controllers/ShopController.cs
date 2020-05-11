@@ -1,4 +1,6 @@
-﻿using OnlineShop.Services;
+﻿using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
+using OnlineShop.Services;
 using OnlineShop.Web.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -10,6 +12,32 @@ namespace OnlineShop.Web.Controllers
 {
     public class ShopController : Controller
     {
+        private ApplicationSignInManager _signInManager;
+        private ApplicationUserManager _userManager;
+
+        public ApplicationSignInManager SignInManager
+        {
+            get
+            {
+                return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
+            }
+            private set
+            {
+                _signInManager = value;
+            }
+        }
+
+        public ApplicationUserManager UserManager
+        {
+            get
+            {
+                return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            }
+            private set
+            {
+                _userManager = value;
+            }
+        }
         public ActionResult Index(string searchTerm, int? minimumPrce, int? maximunPrice, int? categoryID, int? sortBy, int? pageNo)
         {
             var pageSize = ConfigurationsService.Instance.ShopPageSize();
@@ -62,6 +90,8 @@ namespace OnlineShop.Web.Controllers
                 model.CartProductIDs = CartProductsCookie.Value.Split('-').Select(x => int.Parse(x)).ToList();
 
                 model.CartProducts = ProductsServices.Instance.GetProducts(model.CartProductIDs);
+
+                model.User = UserManager.FindById(User.Identity.GetUserId());
             }
 
             return View(model);
