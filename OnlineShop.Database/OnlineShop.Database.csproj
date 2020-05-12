@@ -39,6 +39,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -76,6 +77,10 @@
     <Compile Include="Migrations\202005082044259_addedCategoryIDInProduct.Designer.cs">
       <DependentUpon>202005082044259_addedCategoryIDInProduct.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202005122049592_AddedOrderandOrderItemsTable.cs" />
+    <Compile Include="Migrations\202005122049592_AddedOrderandOrderItemsTable.Designer.cs">
+      <DependentUpon>202005122049592_AddedOrderandOrderItemsTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="OSContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -111,6 +116,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202005082044259_addedCategoryIDInProduct.resx">
       <DependentUpon>202005082044259_addedCategoryIDInProduct.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005122049592_AddedOrderandOrderItemsTable.resx">
+      <DependentUpon>202005122049592_AddedOrderandOrderItemsTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
