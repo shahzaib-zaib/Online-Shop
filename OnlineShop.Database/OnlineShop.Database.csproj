@@ -81,6 +81,10 @@
     <Compile Include="Migrations\202005122049592_AddedOrderandOrderItemsTable.Designer.cs">
       <DependentUpon>202005122049592_AddedOrderandOrderItemsTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202005130927331_AddedQuantityInOrderItems.cs" />
+    <Compile Include="Migrations\202005130927331_AddedQuantityInOrderItems.Designer.cs">
+      <DependentUpon>202005130927331_AddedQuantityInOrderItems.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="OSContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -119,6 +123,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202005122049592_AddedOrderandOrderItemsTable.resx">
       <DependentUpon>202005122049592_AddedOrderandOrderItemsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005130927331_AddedQuantityInOrderItems.resx">
+      <DependentUpon>202005130927331_AddedQuantityInOrderItems.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

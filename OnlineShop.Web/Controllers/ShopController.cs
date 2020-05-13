@@ -82,7 +82,7 @@ namespace OnlineShop.Web.Controllers
             CheckoutViewModel model = new CheckoutViewModel();
 
             var CartProductsCookie = Request.Cookies["CartProducts"];
-            if (CartProductsCookie != null)
+            if (CartProductsCookie != null && !string.IsNullOrEmpty(CartProductsCookie.Value))
             {
                 //var productIDs = CartProductsCookie.Value;
                 //var ids = productIDs.Split('-');
@@ -118,7 +118,7 @@ namespace OnlineShop.Web.Controllers
                 newOrder.OrderItems = new List<OrderItem>();
                 newOrder.OrderItems.AddRange(boughtProducts.Select(x => new OrderItem() { ProductID = x.ID, Quantity = productQuantities.Where(productID => productID == x.ID).Count() }));
 
-                var rowsEffected = ShopService.Instance.SaveOrder(newOrder);
+                var rowsEffected = ShopServices.Instance.SaveOrder(newOrder);
 
                 result.Data = new { Success = true, Rows = rowsEffected };
             }
