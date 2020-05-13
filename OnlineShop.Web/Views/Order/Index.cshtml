@@ -32,10 +32,10 @@
                                 <label>Action</label>
                                 <div class="row">
                                     <div class="col-md-4 pr-0">
-                                        <button class="btn btn-primary form-control" type="submit" id="searchBtn">Search</button>
+                                        <button type="submit" id="searchBtn">Search</button>
                                     </div>
                                     <div class="col-md-4 pr-0">
-                                        <a class="btn btn-primary form-control" type="button" id="resetBtn" href="@Url.Action("Index", "Order", new { pageNo = 1 })">Reset</a>
+                                        <a type="button" id="resetBtn" href="@Url.Action("Index", "Order", new { pageNo = 1 })">Reset</a>
                                     </div>
                                 </div>
                             </div>
@@ -67,6 +67,7 @@
                                     </td>
                                     <td>@order.Status</td>
                                     <td class="wrap-td">
+                                        <button class="detailBtn" data-id="@order.ID" href="@Url.Action("Details", "Order", new { ID = order.ID })">Details</button>
                                         <a class="detailBtn" data-id="@order.ID" href="@Url.Action("Details", "Order", new { ID = order.ID })">Details</a>
                                     </td>
                                 </tr>
@@ -81,6 +82,28 @@
                     </tbody>
                 </table>
                 <div>
+                    @if (Model.Pager != null && Model.Pager.TotalPages > 1)
+                    {
+
+                        if (Model.Pager.CurrentPage > 1)
+                        {
+                            <button class="pageButtons" data-pageno="1">First</button>
+                            <button class="pageButtons" data-pageno="@(Model.Pager.CurrentPage - 1)">Previous</button>
+                        }
+
+                        for (var page = Model.Pager.StartPage; page <= Model.Pager.EndPage; page++)
+                        {
+                            string activeClass = Model.Pager.CurrentPage == page ? "active bg-info" : string.Empty;
+
+                            <button class="@activeClass pageButtons" data-pageno="@page">@page</button>
+                        }
+
+                        if (Model.Pager.CurrentPage < Model.Pager.TotalPages)
+                        {
+                            <button class="pageButtons" data-pageno="@(Model.Pager.CurrentPage + 1)">Next</button>
+                            <button class="pageButtons" data-pageno="@Model.Pager.EndPage">Last</button>
+                        }
+                    }
                     @if (Model.Pager != null && Model.Pager.TotalPages > 1)
                     {
 
@@ -112,8 +135,10 @@
 </section>
 
 
-<script>function focusAction(controlToFocus) {
+<script>
+    function focusAction(controlToFocus) {
 		$('html, body').animate({
 			scrollTop: $("#" + controlToFocus).offset().top - 100
 		}, 1000);
-	}</script>
+    }
+</script>

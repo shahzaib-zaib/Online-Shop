@@ -15,7 +15,6 @@ namespace OnlineShop.Web.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
-
         public ApplicationSignInManager SignInManager
         {
             get
@@ -27,7 +26,6 @@ namespace OnlineShop.Web.Controllers
                 _signInManager = value;
             }
         }
-
         public ApplicationUserManager UserManager
         {
             get

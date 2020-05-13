@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Data.Entity;
 
 namespace OnlineShop.Services
 {
@@ -62,6 +63,24 @@ namespace OnlineShop.Services
                 }
 
                 return orders.Count;
+            }
+        }
+        public Order GetOrderByID(int ID)
+        {
+            using (var context = new OSContext())
+            {
+                return context.Orders.Where(x => x.ID == ID).Include(x => x.OrderItems).Include("OrderItems.Product").FirstOrDefault();
+            }
+        }
+
+        public bool UpdateOrderStatus(int ID, string status)
+        {
+            using (var context = new OSContext())
+            {
+                var order = context.Orders.Find(ID);
+                order.Status = status;
+                //context.Entry(order).State = EntityState.Modified;    //If order status giving error then active this...
+                return context.SaveChanges() > 0;
             }
         }
     }
